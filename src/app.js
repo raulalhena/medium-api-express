@@ -1,6 +1,6 @@
 import express from 'express';
-import { userController } from './users/controller.js';
-import { postController } from './posts/controller.js';
+import userRouter from './routes/users.js';
+import postRouter from './routes/posts.js';
 
 const app = express();
 
@@ -13,14 +13,10 @@ app.get('/', (req, res) => {
 });
 
 // END POINT: users
-app.get('/users', userController.findAll);
-app.get('/users/:id', userController.findOneById);
-app.post('/users', userController.create);
+app.use('/users', userRouter);
 
 // END POINT: posts
-app.get('/posts', postController.findAll);
-app.get('/posts/:id', postController.findOneById);
-app.post('/posts', postController.create);
+app.use('/posts', postRouter);
 
 export default app.listen(PORT | 3000, () => {
   console.log(`Server listening on port ${PORT}`);
